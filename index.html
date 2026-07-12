@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAINER TAXI CYPRUS — Трансферы и поездки по Кипру</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=Work+Sans:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0E2A44;
+    --navy-2:#173A5C;
+    --navy-3:#0A2036;
+    --gold:#D4A32C;
+    --gold-light:#F0C766;
+    --ink:#122234;
+    --paper:#FFFFFF;
+    --paper-dim:#F3F5F7;
+    --muted:#5C6C78;
+    --line:#E3E7EA;
+    --line-dark:rgba(212,163,44,0.28);
+    --shadow: 0 14px 32px rgba(14,42,68,0.16);
+    --shadow-dark: 0 14px 32px rgba(0,0,0,0.4);
+    --radius: 4px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Work Sans', sans-serif; line-height:1.55;
+  }
+  h1,h2,h3{
+    font-family:'Anton', sans-serif; font-weight:400; letter-spacing:0.02em;
+    margin:0; text-transform:uppercase;
+  }
+  a{color:inherit;}
+  img,svg{display:block; max-width:100%;}
+  button{font-family:inherit; cursor:pointer;}
+  :focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- NAV ---------- */
+  .nav{position:sticky; top:0; z-index:60; background:var(--navy); color:#fff; border-bottom:2px solid var(--gold);}
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:12px 24px; gap:20px;}
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand .emblem{width:34px; height:34px; flex:none;}
+  .brand-text{font-family:'Anton', sans-serif; line-height:1.1;}
+  .brand-text .l1{font-size:17px; letter-spacing:0.03em; color:#fff; display:block;}
+  .brand-text .l2{font-size:12px; letter-spacing:0.18em; color:var(--gold); display:block;}
+  .nav-links{display:flex; gap:24px; font-size:14px; font-weight:600; align-items:center;}
+  .nav-links a{text-decoration:none; opacity:0.88; color:#fff;}
+  .nav-links a:hover{opacity:1; color:var(--gold);}
+  .nav-phone{font-size:14px; font-weight:700; color:#fff; text-decoration:none; white-space:nowrap;}
+  .lang-switch{display:flex; gap:4px; background:rgba(255,255,255,0.08); border-radius:999px; padding:3px;}
+  .lang-btn{background:transparent; border:none; color:#cfd8e0; font-size:12px; font-weight:700; padding:5px 10px; border-radius:999px; letter-spacing:0.04em;}
+  .lang-btn.active{background:var(--gold); color:var(--navy);}
+  .nav-cta{background:var(--gold); color:var(--navy); border:none; padding:10px 18px; border-radius:var(--radius); font-weight:700; font-size:13px; text-decoration:none; white-space:nowrap;}
+  .nav-mobile-hide{display:flex; align-items:center; gap:24px;}
+  @media (max-width:900px){ .nav-mobile-hide{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative; overflow:hidden; color:var(--navy);}
+  .hero-bg{position:absolute; inset:0; z-index:0;}
+  .hero-overlay{
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(10,32,54,0.06) 55%, var(--navy-3) 100%);
+  }
+  .hero-grid{position:relative; z-index:2; padding:48px 0 56px; display:grid; grid-template-columns:1fr; gap:22px;}
+  .eyebrow{display:none;}
+  .hero h1{font-size:clamp(28px, 4.2vw, 44px); line-height:1.12; color:var(--navy); max-width:640px;}
+  .hero h1 span{color:var(--navy-2); font-weight:400;}
+  .hero p.sub{margin-top:10px; font-size:17px; max-width:520px; color:var(--navy-2); font-weight:600; text-shadow:0 2px 14px rgba(255,255,255,0.5);}
+  .hero-ctas{display:flex; gap:14px; margin-top:6px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:14px 24px; border-radius:var(--radius); font-weight:700; font-size:14px; text-decoration:none; border:2px solid transparent; transition:transform 0.15s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  @media (prefers-reduced-motion: reduce){ .btn:hover{transform:none;} }
+  .btn-primary{background:var(--gold); color:var(--navy);}
+  .btn-ghost{background:rgba(255,255,255,0.85); color:var(--navy); border-color:var(--navy);}
+
+  /* quick booking bar on hero */
+  .quickbar{
+    position:relative; z-index:2; background:var(--navy); border:1px solid var(--line-dark);
+    border-radius:8px; padding:20px; box-shadow:var(--shadow-dark); max-width:560px;
+  }
+  .quickbar-title{font-family:'Anton', sans-serif; font-size:13px; letter-spacing:0.1em; color:var(--gold-light); margin-bottom:14px;}
+  .quickbar-row{display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr auto; gap:10px;}
+  .quickbar select, .quickbar input{
+    padding:11px 12px; border-radius:var(--radius); border:1px solid var(--line);
+    background:#fff; color:var(--ink); font-size:14px; font-family:inherit;
+  }
+  .quickbar select option{color:#000;}
+  .quickbar .qb-price{
+    display:flex; flex-direction:column; justify-content:center; align-items:flex-start; color:#fff; font-size:12px;
+  }
+  .quickbar .qb-price b{font-family:'Anton', sans-serif; font-size:20px; color:var(--gold-light); font-weight:400;}
+  .quickbar-cta{background:var(--gold); color:var(--navy); border:none; padding:0 20px; border-radius:var(--radius); font-weight:700; font-size:14px;}
+  @media (max-width:800px){ .quickbar-row{grid-template-columns:1fr 1fr; } .quickbar-cta{grid-column:1/-1;} }
+
+  /* ---------- INTRO 3-COL (fleet / why / testimonials teaser) ---------- */
+  .intro3{background:var(--paper); padding:56px 0;}
+  .intro3-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:36px;}
+  .intro3-col h3.intro3-head{font-size:15px; color:var(--ink); letter-spacing:0.02em; margin-bottom:16px; padding-bottom:8px; border-bottom:3px solid var(--gold);}
+  .intro3-cars{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .intro3-car svg{width:100%; height:auto;}
+  .intro3-car p.car-name{margin:8px 0 2px; font-weight:700; font-size:13.5px; color:var(--ink);}
+  .intro3-car p.car-desc{margin:0; font-size:12px; color:var(--muted); line-height:1.4;}
+  .intro3-why{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;}
+  .intro3-why li{display:flex; align-items:center; gap:10px; font-weight:700; font-size:14.5px; color:var(--ink);}
+  .intro3-why li::before{content:""; width:8px; height:8px; border-radius:50%; background:var(--gold); flex:none;}
+  .intro3-quote{position:relative; padding:6px 4px 4px 6px;}
+  .intro3-quote .mark{font-family:'Anton', sans-serif; font-size:44px; color:var(--gold); line-height:0.6; display:block;}
+  .intro3-quote p{font-size:13.5px; color:var(--muted); font-style:italic; margin:6px 0 10px;}
+  .intro3-quote .who{font-size:12.5px; font-weight:700; color:var(--navy-2); font-style:normal;}
+  @media (max-width:900px){ .intro3-grid{grid-template-columns:1fr;} }
+
+  section{padding:76px 0;}
+  .section-head{max-width:640px; margin-bottom:40px;}
+  .section-head .kicker{color:var(--navy-2); font-weight:700; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; display:block; margin-bottom:10px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,40px); color:var(--ink);}
+  .section-head p{margin-top:14px; font-size:16px; color:var(--muted);}
+  .on-dark .section-head .kicker{color:var(--gold-light);}
+  .on-dark .section-head h2{color:#fff;}
+  .on-dark .section-head p{color:#C7D2DA;}
+
+  /* ---------- PRICES ---------- */
+  .prices{background:var(--paper-dim);}
+  .price-table{width:100%; border-collapse:collapse; overflow:hidden; border-radius:8px; box-shadow:var(--shadow);}
+  .price-table thead{background:var(--navy); color:#fff;}
+  .price-table th, .price-table td{text-align:left; padding:15px 18px; font-size:14.5px;}
+  .price-table th{font-family:'Anton', sans-serif; font-weight:400; letter-spacing:0.04em; font-size:13px; text-transform:uppercase; color:var(--gold-light);}
+  .price-table tbody tr{background:#fff; border-bottom:1px solid var(--line);}
+  .price-table tbody tr:nth-child(even){background:var(--paper-dim);}
+  .price-table td.price{font-family:'Anton', sans-serif; color:var(--navy-2); font-size:16px;}
+  .price-note{margin-top:16px; font-size:13px; color:var(--muted);}
+
+  /* ---------- FLEET ---------- */
+  .fleet{background:var(--paper);}
+  .fleet-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .fleet-card{
+    border:1px solid var(--line); border-radius:10px; padding:0; overflow:hidden;
+    box-shadow:var(--shadow); display:flex; flex-direction:column;
+  }
+  .fleet-art{background:linear-gradient(180deg, var(--navy-2), var(--navy)); padding:30px 20px 18px; display:flex; justify-content:center;}
+  .fleet-art svg{width:100%; max-width:220px;}
+  .fleet-body{padding:22px 24px 26px;}
+  .fleet-badge{display:inline-block; background:var(--gold); color:var(--navy); font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:4px 10px; border-radius:999px; margin-bottom:10px;}
+  .fleet-body h3{font-size:20px; color:var(--ink); margin-bottom:8px;}
+  .fleet-body p{margin:0 0 16px; font-size:14px; color:var(--muted);}
+  .fleet-specs{display:flex; gap:16px; font-size:13px; color:var(--navy-2); font-weight:600; margin-bottom:18px;}
+  .fleet-select-btn{background:var(--navy); color:#fff; border:none; padding:11px 18px; border-radius:var(--radius); font-weight:700; font-size:13px; text-decoration:none; display:inline-block;}
+  .fleet-select-btn:hover{background:var(--navy-2);}
+
+  /* ---------- BOOKING ---------- */
+  .booking{background:var(--navy-3); color:#fff;}
+  .booking-grid{display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start;}
+  .form-card{background:var(--navy); color:#fff; border-radius:8px; padding:30px; box-shadow:var(--shadow-dark); border:1px solid var(--line-dark);}
+  .field{margin-bottom:18px;}
+  .field label{display:block; font-weight:700; font-size:12.5px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px; color:var(--gold-light);}
+  .field input, .field select, .field textarea{
+    width:100%; padding:11px 14px; border:1px solid rgba(255,255,255,0.18); border-radius:var(--radius);
+    font-size:15px; font-family:inherit; background:rgba(255,255,255,0.06); color:#fff;
+  }
+  .field select option{color:#000;}
+  .field textarea{resize:vertical; min-height:66px;}
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .quote-box{margin-top:6px; padding:15px 18px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); border-radius:var(--radius); display:flex; justify-content:space-between; align-items:center; font-weight:700;}
+  .quote-box .amount{font-family:'Anton', sans-serif; font-size:22px; color:var(--gold-light);}
+  .submit-row{display:flex; gap:12px; margin-top:20px; flex-wrap:wrap;}
+  .submit-row .btn-primary{background:var(--gold); color:var(--navy);}
+  .submit-row .btn-whatsapp{background:#25D366; color:#fff;}
+  .form-msg{margin-top:14px; padding:12px 16px; border-radius:var(--radius); background:rgba(37,211,102,0.15); color:#7CE3A6; font-weight:600; font-size:13.5px; display:none; border:1px solid rgba(37,211,102,0.3);}
+  .form-msg.show{display:block;}
+
+  .side-info{display:flex; flex-direction:column; gap:18px;}
+  .info-card{background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.14); padding:20px 22px; border-radius:8px;}
+  .info-card h3{font-size:16.5px; margin-bottom:8px; color:var(--gold-light); text-transform:none;}
+  .info-card p{margin:0; color:#C7D2DA; font-size:13.5px;}
+  .info-card a.direct{display:inline-flex; align-items:center; gap:8px; margin-top:10px; color:#fff; font-weight:700; text-decoration:none; font-size:14.5px;}
+  .info-card a.direct:hover{color:var(--gold-light);}
+
+  /* ---------- WHY ---------- */
+  .why{background:var(--paper-dim);}
+  .why-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .why-card{background:#fff; padding:26px; border-radius:8px; box-shadow:var(--shadow); border:1px solid var(--line);}
+  .why-card .num{font-family:'Anton', sans-serif; font-size:13px; color:var(--navy-2); margin-bottom:8px; display:block;}
+  .why-card h3{font-size:18px; margin-bottom:8px; color:var(--ink); text-transform:none;}
+  .why-card p{margin:0; font-size:13.5px; color:var(--muted);}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--navy-3); color:#B9C6CF; padding:42px 0 24px; border-top:3px solid var(--gold);}
+  .foot-grid{display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:28px; padding-bottom:24px; border-bottom:1px solid rgba(255,255,255,0.1);}
+  .foot-brand{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
+  .foot-brand .emblem{width:28px; height:28px;}
+  .foot-brand span{font-family:'Anton',sans-serif; color:#fff; font-size:16px;}
+  .foot-col h4{font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-light); margin-bottom:12px;}
+  .foot-col a, .foot-col p{display:block; font-size:13.5px; color:#B9C6CF; text-decoration:none; margin-bottom:8px;}
+  .foot-col a:hover{color:var(--gold-light);}
+  .foot-bottom{padding-top:18px; font-size:12.5px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+  @media (max-width:760px){ .foot-grid{grid-template-columns:1fr;} }
+
+  @media (max-width:900px){
+    .booking-grid{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .fleet-grid{grid-template-columns:1fr;}
+    .two-col{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="brand">
+      <svg class="emblem" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M24 6 L24 30 L10 30 Z" fill="#FFFFFF"/>
+        <path d="M24 12 L24 30 L34 30 Z" fill="#D4A32C"/>
+        <rect x="23" y="4" width="2" height="27" fill="#D4A32C"/>
+        <path d="M6 33 Q24 41 42 33 L38 37 Q24 43 10 37 Z" fill="#D4A32C"/>
+      </svg>
+      <div class="brand-text">
+        <span class="l1">LAINER TAXI</span>
+        <span class="l2">CYPRUS</span>
+      </div>
+    </div>
+    <div class="nav-mobile-hide">
+      <div class="nav-links">
+        <a href="#top" data-i18n="nav_home">Главная</a>
+        <a href="#prices" data-i18n="nav_services">Услуги</a>
+        <a href="#fleet" data-i18n="nav_fleet">Парк авто</a>
+        <a class="nav-cta" href="#booking" data-i18n="nav_cta">Забронировать</a>
+        <a href="#contact" data-i18n="nav_contact">Контакты</a>
+      </div>
+      <a class="nav-phone" href="tel:+35794090383">+357 94 090 383</a>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button class="lang-btn active" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="hero-bg" viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#F4B36B"/>
+        <stop offset="45%" stop-color="#E8875F"/>
+        <stop offset="75%" stop-color="#2E5C7A"/>
+        <stop offset="100%" stop-color="#123049"/>
+      </linearGradient>
+      <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3E6E85"/>
+        <stop offset="100%" stop-color="#0E2A44"/>
+      </linearGradient>
+      <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FCE2B0" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#FCE2B0" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect x="0" y="0" width="1200" height="640" fill="url(#sky)"/>
+    <circle cx="860" cy="230" r="150" fill="url(#sunGlow)"/>
+    <circle cx="860" cy="230" r="70" fill="#F7D48A"/>
+    <rect x="0" y="380" width="1200" height="260" fill="url(#sea)"/>
+    <path d="M0 380 Q150 365 300 380 T600 380 T900 380 T1200 380 V640 H0 Z" fill="#0E2A44" opacity="0.35"/>
+    <!-- palm left -->
+    <g transform="translate(90,330)">
+      <rect x="-6" y="0" width="12" height="150" fill="#0A2036"/>
+      <path d="M0 0 C -60 -30 -90 -70 -110 -60 C -80 -40 -40 -15 0 10 Z" fill="#0A2036"/>
+      <path d="M0 0 C 60 -30 90 -70 110 -60 C 80 -40 40 -15 0 10 Z" fill="#0A2036"/>
+      <path d="M0 0 C -20 -55 -10 -95 10 -110 C 20 -70 15 -30 0 0 Z" fill="#0A2036"/>
+      <path d="M0 0 C 20 -55 10 -95 -10 -110 C -20 -70 -15 -30 0 0 Z" fill="#0A2036"/>
+    </g>
+    <!-- palm right -->
+    <g transform="translate(1080,350) scale(0.8)">
+      <rect x="-6" y="0" width="12" height="150" fill="#0A2036"/>
+      <path d="M0 0 C -60 -30 -90 -70 -110 -60 C -80 -40 -40 -15 0 10 Z" fill="#0A2036"/>
+      <path d="M0 0 C 60 -30 90 -70 110 -60 C 80 -40 40 -15 0 10 Z" fill="#0A2036"/>
+      <path d="M0 0 C -20 -55 -10 -95 10 -110 C 20 -70 15 -30 0 0 Z" fill="#0A2036"/>
+      <path d="M0 0 C 20 -55 10 -95 -10 -110 C -20 -70 -15 -30 0 0 Z" fill="#0A2036"/>
+    </g>
+    <!-- road -->
+    <rect x="0" y="560" width="1200" height="80" fill="#132C41"/>
+    <rect x="0" y="558" width="1200" height="4" fill="#D4A32C" opacity="0.8"/>
+    <!-- car silhouette -->
+    <g transform="translate(430,505)">
+      <rect x="0" y="18" width="150" height="26" rx="6" fill="#0A2036"/>
+      <path d="M18 18 Q30 -4 60 -4 L110 -4 Q132 -4 138 18 Z" fill="#0A2036"/>
+      <circle cx="34" cy="46" r="12" fill="#0A2036"/>
+      <circle cx="118" cy="46" r="12" fill="#0A2036"/>
+      <circle cx="34" cy="46" r="5" fill="#D4A32C"/>
+      <circle cx="118" cy="46" r="5" fill="#D4A32C"/>
+    </g>
+  </svg>
+  <div class="hero-overlay"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow" data-i18n="hero_eyebrow">Кипр · Такси и трансферы</span>
+      <h1 data-i18n="hero_title">Люксовое такси <span data-i18n-span="hero_title_span">по всему Кипру</span></h1>
+      <p class="sub" data-i18n="hero_sub">Фиксированные цены, никаких сюрпризов на счётчике. Аэропорты, города и курорты — LAINER TAXI CYPRUS довезёт вовремя.</p>
+      <div class="hero-ctas">
+        <a href="#booking" class="btn btn-primary" data-i18n="hero_cta_book">Забронировать поездку</a>
+        <a href="tel:+35794090383" class="btn btn-ghost" data-i18n="hero_cta_call">Позвонить сейчас</a>
+      </div>
+    </div>
+    <div class="quickbar">
+      <div class="quickbar-title" data-i18n="quickbar_title">БЫСТРЫЙ РАСЧЁТ ПОЕЗДКИ</div>
+      <div class="quickbar-row">
+        <select id="qbRoute" aria-label="Route"></select>
+        <input type="time" id="qbTime" aria-label="Time">
+        <select id="qbPax" aria-label="Passengers">
+          <option value="1-4" data-i18n="pax_1_4">1–4 пассажира</option>
+          <option value="4-6" data-i18n="pax_4_6">4–6 пассажиров</option>
+        </select>
+        <div class="qb-price"><span data-i18n="quote_label">Стоимость</span><b id="qbAmount">55€</b></div>
+        <button type="button" class="quickbar-cta" id="qbGoBtn" data-i18n="quickbar_btn">К брони</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="intro3">
+  <div class="wrap intro3-grid">
+    <div class="intro3-col">
+      <h3 class="intro3-head" data-i18n="intro_fleet_head">НАШ ПАРК</h3>
+      <div class="intro3-cars">
+        <div class="intro3-car">
+          <svg viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="10" y="55" width="200" height="34" rx="8" fill="#1B2530"/>
+            <path d="M35 55 Q50 22 85 22 L145 22 Q175 22 185 55 Z" fill="#1B2530"/>
+            <rect x="55" y="30" width="30" height="20" rx="3" fill="#7C8B96"/>
+            <rect x="95" y="30" width="55" height="20" rx="3" fill="#7C8B96"/>
+            <circle cx="55" cy="90" r="16" fill="#0A0F14"/>
+            <circle cx="165" cy="90" r="16" fill="#0A0F14"/>
+            <circle cx="55" cy="90" r="7" fill="#D4A32C"/>
+            <circle cx="165" cy="90" r="7" fill="#D4A32C"/>
+          </svg>
+          <p class="car-name" data-i18n="car_eclass_name">Mercedes E-Class</p>
+          <p class="car-desc" data-i18n="car_eclass_desc">Комфортный седан для 1–4 пассажиров.</p>
+        </div>
+        <div class="intro3-car">
+          <svg viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="6" y="45" width="208" height="44" rx="10" fill="#1B2530"/>
+            <path d="M22 45 Q30 18 60 18 L160 18 Q195 18 200 45 Z" fill="#1B2530"/>
+            <rect x="38" y="24" width="34" height="20" rx="3" fill="#7C8B96"/>
+            <rect x="78" y="24" width="34" height="20" rx="3" fill="#7C8B96"/>
+            <rect x="118" y="24" width="34" height="20" rx="3" fill="#7C8B96"/>
+            <circle cx="55" cy="90" r="17" fill="#0A0F14"/>
+            <circle cx="170" cy="90" r="17" fill="#0A0F14"/>
+            <circle cx="55" cy="90" r="7.5" fill="#D4A32C"/>
+            <circle cx="170" cy="90" r="7.5" fill="#D4A32C"/>
+          </svg>
+          <p class="car-name" data-i18n="car_vclass_name">Mercedes V-Class</p>
+          <p class="car-desc" data-i18n="car_vclass_desc">Просторный минивэн для 4–6 пассажиров.</p>
+        </div>
+      </div>
+    </div>
+    <div class="intro3-col">
+      <h3 class="intro3-head" data-i18n="intro_why_head">ПОЧЕМУ ВЫБИРАЮТ LAINER TAXI?</h3>
+      <ul class="intro3-why">
+        <li data-i18n="why_reliable">Надёжные водители</li>
+        <li data-i18n="why_fixed">Фиксированные цены</li>
+        <li data-i18n="why_support">Поддержка 24/7</li>
+      </ul>
+    </div>
+    <div class="intro3-col">
+      <h3 class="intro3-head" data-i18n="intro_test_head">ОТЗЫВЫ</h3>
+      <div class="intro3-quote">
+        <span class="mark">&ldquo;</span>
+        <p data-i18n="test1_quote">Встретили в аэропорту точно по времени, машина чистая, водитель вежливый. Доехали до Айя-Напы без задержек.</p>
+        <span class="who" data-i18n="test1_who">— Елена, Айя-Напа</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="prices" id="prices">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker" data-i18n="prices_kicker">Тарифы</span>
+      <h2 data-i18n="prices_title">Фиксированные цены по маршрутам</h2>
+      <p data-i18n="prices_sub">Цена известна заранее — вы платите за маршрут, а не за пробки. Все поездки — трансфер из аэропорта Larnaca.</p>
+    </div>
+    <div style="overflow-x:auto;">
+    <table class="price-table" id="priceTable">
+      <thead>
+        <tr>
+          <th data-i18n="th_route">Маршрут</th>
+          <th data-i18n="th_day14">1–4 пасс., день</th>
+          <th data-i18n="th_night14">1–4 пасс., ночь</th>
+          <th data-i18n="th_day46">4–6 пасс., день</th>
+          <th data-i18n="th_night46">4–6 пасс., ночь</th>
+        </tr>
+      </thead>
+      <tbody id="priceBody"></tbody>
+    </table>
+    </div>
+    <p class="price-note" data-i18n="price_note">* Ночной тариф — с 20:00 до 07:00. Цена за автомобиль целиком, в одну сторону.</p>
+  </div>
+</section>
+
+<section class="fleet" id="fleet">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker" data-i18n="fleet_kicker">Наш парк</span>
+      <h2 data-i18n="fleet_title">Выберите класс автомобиля</h2>
+      <p data-i18n="fleet_sub">Тариф зависит от числа пассажиров — цены на обе категории уже указаны в таблице тарифов.</p>
+    </div>
+    <div class="fleet-grid">
+      <div class="fleet-card">
+        <div class="fleet-art">
+          <svg viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="10" y="55" width="200" height="34" rx="8" fill="#E7EBEE"/>
+            <path d="M35 55 Q50 22 85 22 L145 22 Q175 22 185 55 Z" fill="#E7EBEE"/>
+            <rect x="55" y="30" width="30" height="20" rx="3" fill="#0E2A44"/>
+            <rect x="95" y="30" width="55" height="20" rx="3" fill="#0E2A44"/>
+            <circle cx="55" cy="90" r="16" fill="#0A2036"/>
+            <circle cx="165" cy="90" r="16" fill="#0A2036"/>
+            <circle cx="55" cy="90" r="7" fill="#D4A32C"/>
+            <circle cx="165" cy="90" r="7" fill="#D4A32C"/>
+          </svg>
+        </div>
+        <div class="fleet-body">
+          <span class="fleet-badge" data-i18n="fleet_sedan_badge">Седан</span>
+          <h3 data-i18n="fleet_sedan_name">1–4 пассажира</h3>
+          <p data-i18n="fleet_sedan_desc">Комфортный седан для трансфера индивидуально, парой или небольшой семьёй. Кондиционер, детское кресло по запросу.</p>
+          <div class="fleet-specs">
+            <span data-i18n="fleet_sedan_spec1">👤 до 4 пасс.</span>
+            <span data-i18n="fleet_sedan_spec2">🧳 до 3 чемоданов</span>
+          </div>
+          <a href="#booking" class="fleet-select-btn" data-pax="1-4" data-i18n="fleet_select_btn">Выбрать</a>
+        </div>
+      </div>
+      <div class="fleet-card">
+        <div class="fleet-art">
+          <svg viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="6" y="45" width="208" height="44" rx="10" fill="#E7EBEE"/>
+            <path d="M22 45 Q30 18 60 18 L160 18 Q195 18 200 45 Z" fill="#E7EBEE"/>
+            <rect x="38" y="24" width="34" height="20" rx="3" fill="#0E2A44"/>
+            <rect x="78" y="24" width="34" height="20" rx="3" fill="#0E2A44"/>
+            <rect x="118" y="24" width="34" height="20" rx="3" fill="#0E2A44"/>
+            <circle cx="55" cy="90" r="17" fill="#0A2036"/>
+            <circle cx="170" cy="90" r="17" fill="#0A2036"/>
+            <circle cx="55" cy="90" r="7.5" fill="#D4A32C"/>
+            <circle cx="170" cy="90" r="7.5" fill="#D4A32C"/>
+          </svg>
+        </div>
+        <div class="fleet-body">
+          <span class="fleet-badge" data-i18n="fleet_van_badge">Минивэн</span>
+          <h3 data-i18n="fleet_van_name">4–6 пассажиров</h3>
+          <p data-i18n="fleet_van_desc">Просторный минивэн для группы или семьи с большим багажом — всем хватит места без пересадок.</p>
+          <div class="fleet-specs">
+            <span data-i18n="fleet_van_spec1">👤 до 6 пасс.</span>
+            <span data-i18n="fleet_van_spec2">🧳 до 6 чемоданов</span>
+          </div>
+          <a href="#booking" class="fleet-select-btn" data-pax="4-6" data-i18n="fleet_select_btn">Выбрать</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="booking on-dark" id="booking">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker" data-i18n="booking_kicker">Бронирование</span>
+      <h2 data-i18n="booking_title">Забронируйте поездку</h2>
+      <p data-i18n="booking_sub">Выберите маршрут — цена посчитается автоматически. Отправьте заявку через форму или сразу через WhatsApp.</p>
+    </div>
+    <div class="booking-grid">
+      <div class="form-card">
+        <form id="bookingForm" action="https://formspree.io/f/mbdnjrov" method="POST">
+          <div class="field">
+            <label for="route" data-i18n="label_route">Маршрут</label>
+            <select id="route" name="Маршрут" required></select>
+          </div>
+          <div class="two-col">
+            <div class="field">
+              <label for="date" data-i18n="label_date">Дата</label>
+              <input type="date" id="date" name="Дата" required>
+            </div>
+            <div class="field">
+              <label for="time" data-i18n="label_time">Время</label>
+              <input type="time" id="time" name="Время" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="pax" data-i18n="label_pax">Пассажиров</label>
+            <select id="pax" name="Пассажиров" required>
+              <option value="1-4" data-i18n="pax_1_4">1–4 пассажира</option>
+              <option value="4-6" data-i18n="pax_4_6">4–6 пассажиров (машина побольше)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="name" data-i18n="label_name">Имя</label>
+            <input type="text" id="name" name="Имя" data-i18n-ph="name_placeholder" placeholder="Как к вам обращаться" required>
+          </div>
+          <div class="field">
+            <label for="phone" data-i18n="label_phone">Телефон</label>
+            <input type="tel" id="phone" name="Телефон" placeholder="+357 ..." required>
+          </div>
+          <div class="field">
+            <label for="notes" data-i18n="label_notes">Комментарий (необязательно)</label>
+            <textarea id="notes" name="Комментарий" data-i18n-ph="notes_placeholder" placeholder="Номер рейса, детское кресло, багаж и т.д."></textarea>
+          </div>
+          <input type="hidden" name="Стоимость" id="hiddenPrice" value="">
+          <input type="hidden" name="_subject" value="Новая заявка — LAINER TAXI CYPRUS">
+          <div class="quote-box">
+            <span data-i18n="quote_label">Стоимость поездки</span>
+            <span class="amount" id="quoteAmount">55€</span>
+          </div>
+          <div class="submit-row">
+            <button type="submit" class="btn btn-primary" data-i18n="submit_btn">Отправить заявку</button>
+            <button type="button" id="whatsappBtn" class="btn btn-whatsapp" data-i18n="whatsapp_btn">Отправить в WhatsApp</button>
+          </div>
+          <div class="form-msg" id="formMsg" data-i18n="form_msg">Заявка принята! Мы позвоним вам для подтверждения в течение 15 минут.</div>
+        </form>
+      </div>
+      <div class="side-info" id="contact">
+        <div class="info-card">
+          <h3 data-i18n="side_call_title">Позвонить напрямую</h3>
+          <p data-i18n="side_call_desc">Если поездка нужна срочно — проще позвонить, и мы подберём машину без ожидания ответа на форму.</p>
+          <a class="direct" href="tel:+35794090383">+357 94 090 383</a>
+        </div>
+        <div class="info-card">
+          <h3 data-i18n="side_wa_title">Написать в WhatsApp</h3>
+          <p data-i18n="side_wa_desc">Отправьте маршрут и время — пришлём подтверждение и имя водителя.</p>
+          <a class="direct" href="https://wa.me/35794090383" target="_blank" rel="noopener" data-i18n="side_wa_link">Открыть чат WhatsApp</a>
+        </div>
+        <div class="info-card">
+          <h3 data-i18n="side_hours_title">Работаем ежедневно</h3>
+          <p data-i18n="side_hours_desc">07:00–20:00 — дневной тариф.<br>20:00–07:00 — ночной тариф.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker" data-i18n="why_kicker">Почему мы</span>
+      <h2 data-i18n="why_title">Такси, на которое можно положиться</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="num">01</span>
+        <h3 data-i18n="why1_title">Цена известна заранее</h3>
+        <p data-i18n="why1_desc">Фиксированный тариф на маршрут — сумма не меняется из-за пробок или объезда.</p>
+      </div>
+      <div class="why-card">
+        <span class="num">02</span>
+        <h3 data-i18n="why2_title">Встреча в аэропорту</h3>
+        <p data-i18n="why2_desc">Водитель отслеживает рейс и ждёт с табличкой при трансфере из аэропорта.</p>
+      </div>
+      <div class="why-card">
+        <span class="num">03</span>
+        <h3 data-i18n="why3_title">Бронь за 1 минуту</h3>
+        <p data-i18n="why3_desc">Форма на сайте, звонок или WhatsApp — как вам удобнее, так и бронируйте.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <svg class="emblem" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M24 6 L24 30 L10 30 Z" fill="#FFFFFF"/>
+            <path d="M24 12 L24 30 L34 30 Z" fill="#D4A32C"/>
+            <rect x="23" y="4" width="2" height="27" fill="#D4A32C"/>
+            <path d="M6 33 Q24 41 42 33 L38 37 Q24 43 10 37 Z" fill="#D4A32C"/>
+          </svg>
+          <span>LAINER TAXI CYPRUS</span>
+        </div>
+        <p data-i18n="foot_tagline" style="max-width:260px;">Фиксированные тарифы и трансферы по всему Кипру, каждый день.</p>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n="foot_links_title">Разделы</h4>
+        <a href="#prices" data-i18n="nav_prices">Тарифы</a>
+        <a href="#fleet" data-i18n="nav_fleet">Парк авто</a>
+        <a href="#booking" data-i18n="nav_booking">Бронь</a>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n="foot_contact_title">Контакты</h4>
+        <a href="tel:+35794090383">+357 94 090 383</a>
+        <a href="https://wa.me/35794090383" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 LAINER TAXI CYPRUS</span>
+      <span>Cyprus · Larnaca · Nicosia · Limassol · Paphos · Ayia Napa</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- Тарифы из аэропорта Larnaca ----
+  const ROUTES = [
+    { name: "Larnaca Airport → Limassol", day: 75, night: 85, day4: 90, night4: 100 },
+    { name: "Larnaca Airport → Ayia Napa", day: 60, night: 70, day4: 80, night4: 90 },
+    { name: "Larnaca Airport → Protaras", day: 70, night: 80, day4: 90, night4: 100 },
+    { name: "Larnaca Airport → Nicosia", day: 55, night: 65, day4: 80, night4: 90 },
+    { name: "Larnaca Airport → Paphos Airport", day: 120, night: 140, day4: 145, night4: 165 },
+    { name: "Larnaca Airport → Ercan Airport", day: 140, night: 140, day4: 180, night4: 180 },
+  ];
+
+  // ---- Переводы интерфейса ----
+  const I18N = {
+    ru: {
+      nav_home:"Главная", nav_services:"Услуги", nav_prices:"Тарифы", nav_fleet:"Парк авто", nav_why:"Почему мы", nav_booking:"Бронь", nav_cta:"Забронировать", nav_contact:"Контакты",
+      hero_eyebrow:"Кипр · Такси и трансферы",
+      hero_title:'Люксовое такси <span style="color:var(--navy-2); font-family:\'Work Sans\',sans-serif; font-weight:700; text-transform:uppercase;">по всему Кипру</span>',
+      hero_sub:"Фиксированные цены, никаких сюрпризов на счётчике. Аэропорты, города и курорты — LAINER TAXI CYPRUS довезёт вовремя.",
+      hero_cta_book:"Забронировать поездку", hero_cta_call:"Позвонить сейчас",
+      quickbar_title:"ЗАБРОНИРУЙТЕ ПОЕЗДКУ", quickbar_btn:"К брони",
+      prices_kicker:"Тарифы", prices_title:"Фиксированные цены по маршрутам",
+      prices_sub:"Цена известна заранее — вы платите за маршрут, а не за пробки. Все поездки — трансфер из аэропорта Larnaca.",
+      th_route:"Маршрут", th_day14:"1–4 пасс., день", th_night14:"1–4 пасс., ночь", th_day46:"4–6 пасс., день", th_night46:"4–6 пасс., ночь",
+      price_note:"* Ночной тариф — с 20:00 до 07:00. Цена за автомобиль целиком, в одну сторону.",
+      fleet_kicker:"Наш парк", fleet_title:"Выберите класс автомобиля",
+      fleet_sub:"Тариф зависит от числа пассажиров — цены на обе категории уже указаны в таблице тарифов.",
+      fleet_sedan_badge:"Седан", fleet_sedan_name:"1–4 пассажира",
+      fleet_sedan_desc:"Комфортный седан для трансфера индивидуально, парой или небольшой семьёй. Кондиционер, детское кресло по запросу.",
+      fleet_sedan_spec1:"👤 до 4 пасс.", fleet_sedan_spec2:"🧳 до 3 чемоданов",
+      fleet_van_badge:"Минивэн", fleet_van_name:"4–6 пассажиров",
+      fleet_van_desc:"Просторный минивэн для группы или семьи с большим багажом — всем хватит места без пересадок.",
+      fleet_van_spec1:"👤 до 6 пасс.", fleet_van_spec2:"🧳 до 6 чемоданов",
+      fleet_select_btn:"Выбрать",
+      booking_kicker:"Бронирование", booking_title:"Забронируйте поездку",
+      booking_sub:"Выберите маршрут — цена посчитается автоматически. Отправьте заявку через форму или сразу через WhatsApp.",
+      label_route:"Маршрут", label_date:"Дата", label_time:"Время", label_pax:"Пассажиров",
+      pax_1_4:"1–4 пассажира", pax_4_6:"4–6 пассажиров (машина побольше)",
+      label_name:"Имя", name_placeholder:"Как к вам обращаться",
+      label_phone:"Телефон", label_notes:"Комментарий (необязательно)", notes_placeholder:"Номер рейса, детское кресло, багаж и т.д.",
+      quote_label:"Стоимость поездки", submit_btn:"Отправить заявку", whatsapp_btn:"Отправить в WhatsApp",
+      form_msg:"Заявка принята! Мы позвоним вам для подтверждения в течение 15 минут.",
+      side_call_title:"Позвонить напрямую", side_call_desc:"Если поездка нужна срочно — проще позвонить, и мы подберём машину без ожидания ответа на форму.",
+      side_wa_title:"Написать в WhatsApp", side_wa_desc:"Отправьте маршрут и время — пришлём подтверждение и имя водителя.", side_wa_link:"Открыть чат WhatsApp",
+      side_hours_title:"Работаем ежедневно", side_hours_desc:"07:00–20:00 — дневной тариф.<br>20:00–07:00 — ночной тариф.",
+      why_kicker:"Почему мы", why_title:"Такси, на которое можно положиться",
+      why1_title:"Цена известна заранее", why1_desc:"Фиксированный тариф на маршрут — сумма не меняется из-за пробок или объезда.",
+      why2_title:"Встреча в аэропорту", why2_desc:"Водитель отслеживает рейс и ждёт с табличкой при трансфере из аэропорта.",
+      why3_title:"Бронь за 1 минуту", why3_desc:"Форма на сайте, звонок или WhatsApp — как вам удобнее, так и бронируйте.",
+      foot_tagline:"Фиксированные тарифы и трансферы по всему Кипру, каждый день.",
+      foot_links_title:"Разделы", foot_contact_title:"Контакты",
+      day_word:"дневной", night_word:"ночной",
+      intro_fleet_head:"НАШ ПАРК", intro_why_head:"ПОЧЕМУ ВЫБИРАЮТ LAINER TAXI?", intro_test_head:"ОТЗЫВЫ",
+      car_eclass_name:"Mercedes E-Class", car_eclass_desc:"Комфортный седан для 1–4 пассажиров с кондиционером и кожаным салоном.",
+      car_vclass_name:"Mercedes V-Class", car_vclass_desc:"Просторный минивэн для 4–6 пассажиров с большим багажом.",
+      why_reliable:"Надёжные водители", why_fixed:"Фиксированные цены", why_support:"Поддержка 24/7",
+      test1_quote:"Встретили в аэропорту точно по времени, машина чистая, водитель вежливый. Доехали до Айя-Напы без задержек.",
+      test1_who:"— Елена, Айя-Напа",
+    },
+    en: {
+      nav_home:"Home", nav_services:"Services", nav_prices:"Rates", nav_fleet:"Our Fleet", nav_why:"Why Us", nav_booking:"Booking", nav_cta:"Book Now", nav_contact:"Contact Us",
+      hero_eyebrow:"Cyprus · Taxi & Transfers",
+      hero_title:'Luxury Taxi <span style="color:var(--navy-2); font-family:\'Work Sans\',sans-serif; font-weight:700; text-transform:uppercase;">All Over Cyprus</span>',
+      hero_sub:"Fixed prices, no surprises on the meter. Airports, cities and resorts — LAINER TAXI CYPRUS gets you there on time.",
+      hero_cta_book:"Book a Ride", hero_cta_call:"Call Now",
+      quickbar_title:"BOOK YOUR RIDE", quickbar_btn:"Go to Booking",
+      prices_kicker:"Rates", prices_title:"Fixed Prices by Route",
+      prices_sub:"You know the price in advance — you pay for the route, not for traffic. All rides depart from Larnaca Airport.",
+      th_route:"Route", th_day14:"1–4 pax, day", th_night14:"1–4 pax, night", th_day46:"4–6 pax, day", th_night46:"4–6 pax, night",
+      price_note:"* Night rate applies 20:00–07:00. Price is per car, one way.",
+      fleet_kicker:"Our Fleet", fleet_title:"Choose Your Car Class",
+      fleet_sub:"The rate depends on passenger count — prices for both categories are already listed in the rate table.",
+      fleet_sedan_badge:"Sedan", fleet_sedan_name:"1–4 Passengers",
+      fleet_sedan_desc:"A comfortable sedan for solo travellers, couples or a small family. Air conditioning, child seat on request.",
+      fleet_sedan_spec1:"👤 up to 4 pax", fleet_sedan_spec2:"🧳 up to 3 suitcases",
+      fleet_van_badge:"Van", fleet_van_name:"4–6 Passengers",
+      fleet_van_desc:"A spacious van for a group or family with extra luggage — everyone fits, no need for two cars.",
+      fleet_van_spec1:"👤 up to 6 pax", fleet_van_spec2:"🧳 up to 6 suitcases",
+      fleet_select_btn:"Select",
+      booking_kicker:"Booking", booking_title:"Book Your Ride",
+      booking_sub:"Pick a route — the price is calculated automatically. Send your request via the form or straight to WhatsApp.",
+      label_route:"Route", label_date:"Date", label_time:"Time", label_pax:"Passengers",
+      pax_1_4:"1–4 passengers", pax_4_6:"4–6 passengers (larger car)",
+      label_name:"Name", name_placeholder:"How should we address you",
+      label_phone:"Phone", label_notes:"Notes (optional)", notes_placeholder:"Flight number, child seat, luggage, etc.",
+      quote_label:"Trip cost", submit_btn:"Send Request", whatsapp_btn:"Send via WhatsApp",
+      form_msg:"Request received! We'll call you to confirm within 15 minutes.",
+      side_call_title:"Call Us Directly", side_call_desc:"Need a ride urgently? Just call — we'll arrange a car without waiting for a form reply.",
+      side_wa_title:"Message on WhatsApp", side_wa_desc:"Send us your route and time — we'll confirm and share the driver's name.", side_wa_link:"Open WhatsApp Chat",
+      side_hours_title:"Open Every Day", side_hours_desc:"07:00–20:00 — day rate.<br>20:00–07:00 — night rate.",
+      why_kicker:"Why Us", why_title:"A Taxi You Can Rely On",
+      why1_title:"Price Known in Advance", why1_desc:"A fixed rate per route — the total doesn't change because of traffic or detours.",
+      why2_title:"Airport Meet & Greet", why2_desc:"Your driver tracks your flight and waits with a name sign for airport transfers.",
+      why3_title:"Book in 1 Minute", why3_desc:"Form on the site, a call, or WhatsApp — book however is easiest for you.",
+      foot_tagline:"Fixed rates and transfers all across Cyprus, every day.",
+      foot_links_title:"Sections", foot_contact_title:"Contact",
+      day_word:"day", night_word:"night",
+      intro_fleet_head:"OUR FLEET", intro_why_head:"WHY CHOOSE LAINER TAXI?", intro_test_head:"TESTIMONIALS",
+      car_eclass_name:"Mercedes E-Class", car_eclass_desc:"A comfortable sedan for 1–4 passengers with A/C and a leather interior.",
+      car_vclass_name:"Mercedes V-Class", car_vclass_desc:"A spacious van for 4–6 passengers with extra luggage room.",
+      why_reliable:"Reliable Drivers", why_fixed:"Fixed Prices", why_support:"24/7 Support",
+      test1_quote:"Met us right on time at the airport, the car was spotless and the driver was friendly. Smooth ride to Ayia Napa with no delays.",
+      test1_who:"— Elena, Ayia Napa",
+    }
+  };
+
+  let currentLang = 'ru';
+
+  function applyLang(lang){
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    const dict = I18N[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if(dict[key] !== undefined){ el.innerHTML = dict[key]; }
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const key = el.getAttribute('data-i18n-ph');
+      if(dict[key] !== undefined){ el.setAttribute('placeholder', dict[key]); }
+    });
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    updateQuote();
+    updateQb();
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+  });
+
+  const priceBody = document.getElementById('priceBody');
+  const routeSelect = document.getElementById('route');
+  const paxSelect = document.getElementById('pax');
+  const timeInput = document.getElementById('time');
+  const quoteAmount = document.getElementById('quoteAmount');
+  const qbRoute = document.getElementById('qbRoute');
+  const qbPax = document.getElementById('qbPax');
+  const qbTime = document.getElementById('qbTime');
+  const qbAmount = document.getElementById('qbAmount');
+
+  function renderTable(){
+    priceBody.innerHTML = ROUTES.map(r =>
+      `<tr><td>${r.name}</td><td class="price">${r.day}€</td><td class="price">${r.night}€</td><td class="price">${r.day4}€</td><td class="price">${r.night4}€</td></tr>`
+    ).join('');
+  }
+
+  function renderRouteSelects(){
+    const opts = ROUTES.map((r, i) => `<option value="${i}">${r.name}</option>`).join('');
+    routeSelect.innerHTML = opts;
+    qbRoute.innerHTML = opts;
+  }
+
+  function isNight(timeValue){
+    if(!timeValue) return false;
+    const [h] = timeValue.split(':').map(Number);
+    return (h >= 20 || h < 7);
+  }
+
+  function priceFor(routeIndex, paxValue, timeValue){
+    const r = ROUTES[routeIndex];
+    const night = isNight(timeValue);
+    const bigCar = paxValue === '4-6';
+    if(bigCar){ return night ? r.night4 : r.day4; }
+    return night ? r.night : r.day;
+  }
+
+  function updateQuote(){
+    const price = priceFor(Number(routeSelect.value), paxSelect.value, timeInput.value);
+    quoteAmount.textContent = price + '€';
+    return price;
+  }
+
+  function updateQb(){
+    const price = priceFor(Number(qbRoute.value), qbPax.value, qbTime.value);
+    qbAmount.textContent = price + '€';
+  }
+
+  [routeSelect, paxSelect, timeInput].forEach(el => el.addEventListener('change', updateQuote));
+  [qbRoute, qbPax, qbTime].forEach(el => el.addEventListener('change', updateQb));
+
+  renderTable();
+  renderRouteSelects();
+  updateQuote();
+  updateQb();
+
+  document.getElementById('qbGoBtn').addEventListener('click', () => {
+    routeSelect.value = qbRoute.value;
+    paxSelect.value = qbPax.value;
+    if(qbTime.value) timeInput.value = qbTime.value;
+    updateQuote();
+    document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+  });
+
+  document.querySelectorAll('.fleet-select-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      paxSelect.value = btn.dataset.pax;
+      updateQuote();
+    });
+  });
+
+  function buildMessage(){
+    const r = ROUTES[Number(routeSelect.value)];
+    const price = updateQuote();
+    const night = isNight(timeInput.value);
+    const dict = I18N[currentLang];
+    const date = document.getElementById('date').value || '—';
+    const time = timeInput.value || '—';
+    const name = document.getElementById('name').value || '—';
+    const phone = document.getElementById('phone').value || '—';
+    const notes = document.getElementById('notes').value;
+    return `LAINER TAXI CYPRUS%0A`
+      + `${dict.label_route}: ${r.name}%0A`
+      + `${dict.label_pax}: ${paxSelect.value}, ${night ? dict.night_word : dict.day_word} — ${price}€%0A`
+      + `${dict.label_date}: ${date}, ${dict.label_time}: ${time}%0A`
+      + `${dict.label_name}: ${name}%0A`
+      + `${dict.label_phone}: ${phone}`
+      + (notes ? `%0A${dict.label_notes}: ${notes}` : '');
+  }
+
+  document.getElementById('bookingForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const price = updateQuote();
+    document.getElementById('hiddenPrice').value = price + '€';
+    const formData = new FormData(form);
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).then((response) => {
+      if(response.ok){
+        document.getElementById('formMsg').classList.add('show');
+        form.reset();
+        renderRouteSelects();
+        updateQuote();
+      } else {
+        alert(currentLang === 'ru' ? 'Не удалось отправить заявку. Попробуйте написать в WhatsApp.' : 'Could not send the request. Please try WhatsApp instead.');
+      }
+    }).catch(() => {
+      alert(currentLang === 'ru' ? 'Не удалось отправить заявку. Попробуйте написать в WhatsApp.' : 'Could not send the request. Please try WhatsApp instead.');
+    }).finally(() => {
+      submitBtn.disabled = false;
+      setTimeout(() => document.getElementById('formMsg').classList.remove('show'), 6000);
+    });
+  });
+
+  document.getElementById('whatsappBtn').addEventListener('click', () => {
+    const msg = buildMessage();
+    window.open(`https://wa.me/35794090383?text=${msg}`, '_blank');
+  });
+
+  applyLang('ru');
+</script>
+
+</body>
+</html>
